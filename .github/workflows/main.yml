@@ -13,29 +13,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-
-        steps:
+    steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-
-              - name: Set up Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.13'
 
-
-                - name: Install Dependencies
+      - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r app/requirements.txt
 
-
-                - name: Build Docker Image
+      - name: Build Docker Image
         run: docker build -t devsecops-flask-app .
 
-
-              - name: Run Trivy Vulnerability Scanner
+      - name: Run Trivy Vulnerability Scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
           image-ref: 'devsecops-flask-app:latest'
